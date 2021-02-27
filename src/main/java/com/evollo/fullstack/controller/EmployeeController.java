@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,13 +29,13 @@ public class EmployeeController {
     };
 
     @PostMapping("/employee")
-    public ResponseEntity<EmployeeModel> post(@RequestBody EmployeeModel employeeModel) {
+    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) {
         return employeeService.save(employeeModel);
     };
 
     @PutMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> put(@PathVariable("id") Long id,
-                                             @RequestBody EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
+                                             @Valid @RequestBody EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
         return employeeService.update(id, newEmployeeModel);
     };
 
