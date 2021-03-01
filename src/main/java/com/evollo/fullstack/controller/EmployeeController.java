@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/evollo/api")
 @AllArgsConstructor
 public class EmployeeController {
 

@@ -1,15 +1,14 @@
 package com.evollo.fullstack.config;
 
-import com.evollo.fullstack.config.jwtconfig.JwtAuthenticationEntryPoint;
-import com.evollo.fullstack.config.jwtconfig.JwtAuthenticationFilter;
-import com.evollo.fullstack.config.security.UserCrendentialService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.evollo.fullstack.security.JwtAuthenticationEntryPoint;
+import com.evollo.fullstack.security.JwtAuthenticationFilter;
+import com.evollo.fullstack.security.UserCrendentialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,6 +24,11 @@ import java.util.Arrays;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserCrendentialService userCrendentialService;
@@ -64,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/evollo/api/auth/signup/admin").hasRole("ADMIN")
                 .antMatchers("/",
                         "/favicon.ico",
                         "/**/*.png",
@@ -72,9 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js").permitAll()
-                .antMatchers("/evollo/api/signup/admin").permitAll()
-                .anyRequest().authenticated();
+                        "/**/*.js").permitAll();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
