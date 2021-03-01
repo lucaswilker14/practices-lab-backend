@@ -25,18 +25,18 @@ public class EmployeeController {
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> get(@PathVariable("id") Long id) throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.getById(id));
-    };
+    }
 
     @PostMapping("/employee")
     public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) {
         return new ResponseEntity<>(employeeService.save(employeeModel), HttpStatus.CREATED);
-    };
+    }
 
     @PutMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> put(@PathVariable("id") Long id,
                                              @Valid @RequestBody EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.update(id, newEmployeeModel));
-    };
+    }
 
     @PatchMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> patch(@PathVariable("id") Long id,

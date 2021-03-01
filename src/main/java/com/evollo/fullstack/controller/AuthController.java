@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Collections;
 
 @RestController
@@ -41,7 +39,6 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
@@ -56,15 +53,12 @@ public class AuthController {
 
         // Creating user's account
         UserModel user = new UserModel(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getPassword());
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         RoleModel userRole = roleRepository.findByRole(RoleName.ROLE_ADMIN)
                 .orElseThrow(() -> new Exception("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
-
-        UserModel result = userRepository.save(user);
+        userRepository.save(user);
 
 //        URI location = ServletUriComponentsBuilder
 //                .fromCurrentContextPath().path("/evollo/api/auth/signup/{username}")

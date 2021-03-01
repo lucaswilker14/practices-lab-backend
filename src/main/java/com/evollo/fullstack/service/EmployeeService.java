@@ -4,9 +4,6 @@ import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +22,12 @@ public class EmployeeService {
     public EmployeeModel getById(Long id) throws EmployeeNotFoundException {
         verifyIfEmployeeExists(id);
         return employeeRepository.findByid(id);
-    };
+    }
 
     @Transactional(rollbackFor = Exception.class)
     public EmployeeModel save(EmployeeModel employeeModel) {
         return employeeRepository.save(employeeModel);
-    };
+    }
 
     @Transactional(rollbackFor = Exception.class)
     public EmployeeModel update(Long id, EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
@@ -60,7 +57,7 @@ public class EmployeeService {
 
         //update the old employee
         return employeeRepository.save(oldEmployeeModel);
-    };
+    }
 
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) throws EmployeeNotFoundException {

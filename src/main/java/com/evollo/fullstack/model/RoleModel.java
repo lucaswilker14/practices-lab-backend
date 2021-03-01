@@ -1,8 +1,6 @@
 package com.evollo.fullstack.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -18,7 +16,6 @@ public class RoleModel {
     @NaturalId
     @Column(length = 60)
     private RoleName role;
-
 
     public RoleModel(RoleName role) {
         this.role = role;
