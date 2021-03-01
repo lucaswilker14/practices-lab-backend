@@ -1,4 +1,4 @@
-package com.evollo.fullstack.config.security;
+package com.evollo.fullstack.security;
 
 import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.repository.UserRepository;

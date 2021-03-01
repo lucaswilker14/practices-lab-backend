@@ -1,12 +1,13 @@
-package com.evollo.fullstack.config.security;
+package com.evollo.fullstack.security;
 
 import com.evollo.fullstack.model.UserModel;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Arrays;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
@@ -29,15 +30,14 @@ public class UserCredential implements UserDetails {
     }
 
     public static UserCredential createNewUser(UserModel user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
+                .collect(Collectors.toList());
+
         return new UserCredential(user.getId(), user.getName(),
-                user.getUsername(), user.getPassword(), getAuthorities(user));
+                user.getUsername(), user.getPassword(), authorities);
     }
 
-    public static Collection<? extends GrantedAuthority> getAuthorities(UserModel user) {
-        return Arrays.stream(user.getRoles().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public String getPassword() {

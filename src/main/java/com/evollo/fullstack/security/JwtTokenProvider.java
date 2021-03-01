@@ -1,6 +1,5 @@
-package com.evollo.fullstack.config.jwtconfig;
+package com.evollo.fullstack.security;
 
-import com.evollo.fullstack.config.security.UserCredential;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

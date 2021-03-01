@@ -1,4 +1,4 @@
-package com.evollo.fullstack.config.security;
+package com.evollo.fullstack.security;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
