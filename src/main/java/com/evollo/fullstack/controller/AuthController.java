@@ -47,7 +47,6 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-
     @PostMapping("/signup/admin")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) throws Exception {
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -67,11 +66,11 @@ public class AuthController {
 
         UserModel result = userRepository.save(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/evollo/api/auth/signup/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath().path("/evollo/api/auth/signup/{username}")
+//                .buildAndExpand(result.getUsername()).toUri();
 
-        return ResponseEntity.created(location).body("User registered successfully");
+        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }
 
 }

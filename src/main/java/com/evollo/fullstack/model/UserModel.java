@@ -23,7 +23,7 @@ public class UserModel {
 
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<RoleModel> roles = new HashSet<>();
 
     public UserModel(String name, String username, String password) {
