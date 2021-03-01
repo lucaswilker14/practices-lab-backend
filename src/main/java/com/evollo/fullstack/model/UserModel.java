@@ -1,11 +1,15 @@
 package com.evollo.fullstack.model;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
+@RequiredArgsConstructor
 public class UserModel {
 
     @Id
@@ -19,5 +23,13 @@ public class UserModel {
 
     private String password;
 
-    private String roles;
+    @ManyToMany
+    private Set<RoleModel> roles = new HashSet<>();
+
+    public UserModel(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
+
 }
