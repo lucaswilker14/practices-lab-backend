@@ -9,4 +9,6 @@ public interface EmployeeRepository  extends JpaRepository<EmployeeModel, Long> 
 
     EmployeeModel findByid(Long id);
 
+    Boolean existsByCpf(String cpf);
+
 }

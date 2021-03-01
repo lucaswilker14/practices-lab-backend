@@ -11,9 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.net.URI;
-import java.util.Collections;
-
 @Component
 @Log4j2
 @RequiredArgsConstructor

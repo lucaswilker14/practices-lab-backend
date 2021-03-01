@@ -1,5 +1,6 @@
 package com.evollo.fullstack.controller;
 
+import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.service.EmployeeService;
@@ -28,7 +29,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) {
+    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException {
         return new ResponseEntity<>(employeeService.save(employeeModel), HttpStatus.CREATED);
     }
 

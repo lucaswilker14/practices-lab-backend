@@ -1,5 +1,6 @@
 package com.evollo.fullstack.service;
 
+import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
@@ -25,7 +26,8 @@ public class EmployeeService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public EmployeeModel save(EmployeeModel employeeModel) {
+    public EmployeeModel save(EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException {
+        verifyIfCpfExists(employeeModel.getCpf());
         return employeeRepository.save(employeeModel);
     }
 
@@ -70,6 +72,13 @@ public class EmployeeService {
         EmployeeModel employee = employeeRepository.findByid(id);
         if (employee == null) {
             throw new EmployeeNotFoundException("Employee ID Not Found!");
+        }
+    }
+
+    private void verifyIfCpfExists(String cpf) throws EmployeeAlreadyRegisteredException {
+        Boolean hasCpf = employeeRepository.existsByCpf(cpf);
+        if (hasCpf) {
+            throw new EmployeeAlreadyRegisteredException("Employee Already Registered!");
         }
     }
 
