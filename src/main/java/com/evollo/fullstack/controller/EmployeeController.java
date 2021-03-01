@@ -1,10 +1,10 @@
 package com.evollo.fullstack.controller;
 
+import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.service.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/evollo/api")
 @AllArgsConstructor
 public class EmployeeController {
 
@@ -27,18 +26,18 @@ public class EmployeeController {
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> get(@PathVariable("id") Long id) throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.getById(id));
-    };
+    }
 
     @PostMapping("/employee")
-    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) {
+    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException {
         return new ResponseEntity<>(employeeService.save(employeeModel), HttpStatus.CREATED);
-    };
+    }
 
     @PutMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> put(@PathVariable("id") Long id,
                                              @Valid @RequestBody EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.update(id, newEmployeeModel));
-    };
+    }
 
     @PatchMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> patch(@PathVariable("id") Long id,
