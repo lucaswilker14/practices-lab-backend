@@ -36,8 +36,13 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         // CREATE ADMIN DEFAULT
         UserModel admin = new UserModel("admin default", "admin", "123");
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        RoleModel userRole = roleRepository.findByRole(RoleName.ROLE_ADMIN).orElseThrow(() -> new Exception("User Role not set."));
-        admin.setRoles(Collections.singleton(userRole));
+        RoleModel adminRole = roleRepository.findByRole(RoleName.ROLE_ADMIN).orElseThrow(() -> new Exception("User Role not set."));
+        RoleModel userRole = roleRepository.findByRole(RoleName.ROLE_USER).orElseThrow(() -> new Exception("User Role not set."));
+        admin.getRoles().add(adminRole);
+        admin.getRoles().add(userRole);
         UserModel result = userRepository.save(admin);
+
+        log.warn(userRepository.findAll());
+
     }
 }

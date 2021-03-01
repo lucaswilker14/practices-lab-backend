@@ -5,6 +5,7 @@ import com.evollo.fullstack.security.JwtAuthenticationFilter;
 import com.evollo.fullstack.security.UserCrendentialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -60,15 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors()
-                .and()
-                .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/evollo/api/auth/signup/admin").hasRole("ADMIN")
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/employee/{id}").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/signup/admin").hasRole("ADMIN")
                 .antMatchers("/",
                         "/favicon.ico",
                         "/**/*.png",
@@ -77,7 +73,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js").permitAll();
+                        "/**/*.js").permitAll()
+                .anyRequest()
+                .authenticated();
+
+        http.cors().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
