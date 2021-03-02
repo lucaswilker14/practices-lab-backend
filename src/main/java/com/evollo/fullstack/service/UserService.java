@@ -51,8 +51,8 @@ public class UserService {
 
     private String generateUsernameDefault() {
         String hash = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
-        log.info("username" + hash);
-        return "username" + hash;
+        log.info("username-" + hash);
+        return "username-" + hash;
     }
 
     private String generatePasswordDefault(String name) {
