@@ -2,7 +2,11 @@ package com.evollo.fullstack.service;
 
 import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
+import com.evollo.fullstack.exception.RoleNotSetException;
+import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.EmployeeModel;
+import com.evollo.fullstack.model.RoleName;
+import com.evollo.fullstack.payload.SignUpRequest;
 import com.evollo.fullstack.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,8 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final UserService userService;
+
 
     public List<EmployeeModel> getAll() {
         return employeeRepository.findAll();
@@ -26,8 +32,20 @@ public class EmployeeService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public EmployeeModel save(EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException {
+    public EmployeeModel save(EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException,
+            UserAlreadyTakenException, RoleNotSetException {
+
         verifyIfCpfExists(employeeModel.getCpf());
+
+        //create common user
+        RoleName roleName = (RoleName.ROLE_USER.name().contains(employeeModel.getPermission()))
+                ? RoleName.ROLE_USER : RoleName.ROLE_ADMIN;
+        SignUpRequest newUser = new SignUpRequest(employeeModel.getName(), "", "", roleName);
+        createNewUser(newUser);
+
+        //send credencial email
+
+        //save
         return employeeRepository.save(employeeModel);
     }
 
@@ -35,6 +53,8 @@ public class EmployeeService {
     public EmployeeModel update(Long id, EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
 
         verifyIfEmployeeExists(id);
+        verifyPermissionSelfUpdate(newEmployeeModel.getCpf());
+
         EmployeeModel oldEmployeeModel = employeeRepository.findByid(id);
 
         if (newEmployeeModel.getName() != null) {
@@ -61,6 +81,13 @@ public class EmployeeService {
         return employeeRepository.save(oldEmployeeModel);
     }
 
+    private void verifyPermissionSelfUpdate(String cpf) throws EmployeeNotFoundException {
+        EmployeeModel employeeModel = employeeRepository.findByCpf(cpf);
+        if (!employeeModel.getCpf().equals(cpf)) {
+            throw new EmployeeNotFoundException("Employee ID Not Found!");
+        }
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) throws EmployeeNotFoundException {
         verifyIfEmployeeExists(id);
@@ -81,5 +108,11 @@ public class EmployeeService {
             throw new EmployeeAlreadyRegisteredException("Employee Already Registered!");
         }
     }
+
+    private void createNewUser(SignUpRequest signUpRequest) throws RoleNotSetException, UserAlreadyTakenException {
+        userService.createNewUser(signUpRequest);
+    }
+
+
 
 }

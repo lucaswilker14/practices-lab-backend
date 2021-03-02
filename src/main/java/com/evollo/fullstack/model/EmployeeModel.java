@@ -1,7 +1,6 @@
 package com.evollo.fullstack.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,5 +30,8 @@ public class EmployeeModel {
 
     @Column(nullable = false)
     private Float salary;
+
+    @Column(nullable = false)
+    private String permission;
 
 }
