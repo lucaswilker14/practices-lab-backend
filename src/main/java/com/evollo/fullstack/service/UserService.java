@@ -11,8 +11,6 @@ import com.evollo.fullstack.repository.RoleRepository;
 import com.evollo.fullstack.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +36,7 @@ public class UserService {
         SignUpRequest newUserRegistered = createNewSignUp(employeeModel);
         verifyUserExistsInDb(newUserRegistered);
 
-        String generatePassword = generatePasswordDefault(newUserRegistered.getName());
+        String generatePassword = generatePasswordDefault();
 
         UserModel user = new UserModel(newUserRegistered.getName(), generateUsernameDefault()
                 , passwordEncoder.encode(generatePassword));
@@ -55,10 +53,8 @@ public class UserService {
     }
 
     private void sendEmailToUser(String toEmail, String username, String password) {
-        String body = "Login credentials:\n" +
-                "\n" +
-                "username: " +username+ "\n"+
-                "password: " +password;
+        String body = String.format("Login credentials:\n \n * username: %s \n * password: %s",
+                username, password);
         String subject = "New credentials created";
         emailSendService.sendEmail(toEmail, body, subject);
     }
@@ -75,7 +71,7 @@ public class UserService {
         return "username-" + hash;
     }
 
-    private String generatePasswordDefault(String name) {
+    private String generatePasswordDefault() {
         return UUID.randomUUID().toString().replace("-", "").substring(0, 10);
     }
 
