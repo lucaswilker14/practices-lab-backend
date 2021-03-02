@@ -2,6 +2,8 @@ package com.evollo.fullstack.controller;
 
 import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
+import com.evollo.fullstack.exception.RoleNotSetException;
+import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -29,19 +31,22 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException {
+    public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel)
+            throws EmployeeAlreadyRegisteredException, UserAlreadyTakenException, RoleNotSetException {
         return new ResponseEntity<>(employeeService.save(employeeModel), HttpStatus.CREATED);
     }
 
     @PutMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> put(@PathVariable("id") Long id,
-                                             @Valid @RequestBody EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
+                                             @Valid @RequestBody EmployeeModel newEmployeeModel)
+            throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.update(id, newEmployeeModel));
     }
 
     @PatchMapping("/employee/{id}")
     public ResponseEntity<EmployeeModel> patch(@PathVariable("id") Long id,
-                                               @RequestBody EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
+                                               @RequestBody EmployeeModel newEmployeeModel)
+            throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.update(id, newEmployeeModel));
     }
 

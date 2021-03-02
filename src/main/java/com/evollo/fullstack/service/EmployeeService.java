@@ -2,6 +2,8 @@ package com.evollo.fullstack.service;
 
 import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
+import com.evollo.fullstack.exception.RoleNotSetException;
+import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,8 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final UserService userService;
+
 
     public List<EmployeeModel> getAll() {
         return employeeRepository.findAll();
@@ -26,8 +30,11 @@ public class EmployeeService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public EmployeeModel save(EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException {
+    public EmployeeModel save(EmployeeModel employeeModel) throws EmployeeAlreadyRegisteredException,
+            UserAlreadyTakenException, RoleNotSetException {
+
         verifyIfCpfExists(employeeModel.getCpf());
+        registeNewUser(employeeModel);
         return employeeRepository.save(employeeModel);
     }
 
@@ -35,6 +42,7 @@ public class EmployeeService {
     public EmployeeModel update(Long id, EmployeeModel newEmployeeModel) throws EmployeeNotFoundException {
 
         verifyIfEmployeeExists(id);
+
         EmployeeModel oldEmployeeModel = employeeRepository.findByid(id);
 
         if (newEmployeeModel.getName() != null) {
@@ -81,5 +89,11 @@ public class EmployeeService {
             throw new EmployeeAlreadyRegisteredException("Employee Already Registered!");
         }
     }
+
+    private void registeNewUser(EmployeeModel employeeModel) throws RoleNotSetException, UserAlreadyTakenException {
+        userService.registeNewUser(employeeModel);
+    }
+
+
 
 }
