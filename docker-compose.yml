@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  evollo-backend:
+    build: .
+    image: evollo-backend
+    ports:
+    - 8080:8080
