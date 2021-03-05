@@ -1,6 +1,7 @@
 package com.evollo.fullstack.model;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -34,4 +35,17 @@ public class EmployeeModel {
     @Column(nullable = false)
     private String permission;
 
+    public EmployeeModel(@NotBlank(message = "Name is mandatory") String name, @Email String email,
+                         @NotBlank String cpf, String jobRole, Float salary, String permission) {
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+        this.jobRole = jobRole;
+        this.salary = salary;
+        this.permission = permission;
+    }
+
+    public EmployeeModel() {
+
+    }
 }

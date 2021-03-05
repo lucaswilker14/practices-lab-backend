@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Map;
+
 import io.jsonwebtoken.*;
 
 
@@ -33,6 +35,8 @@ public class JwtTokenProvider {
                 .setSubject(Long.toString(userCredential.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
+                .addClaims(Map.of("role", userCredential.getAuthorities()))
+                .addClaims(Map.of("id", userCredential.getId()))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
 

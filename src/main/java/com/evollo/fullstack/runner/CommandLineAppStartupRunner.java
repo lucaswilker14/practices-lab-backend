@@ -1,8 +1,10 @@
 package com.evollo.fullstack.runner;
 
+import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.model.RoleModel;
 import com.evollo.fullstack.model.RoleName;
 import com.evollo.fullstack.model.UserModel;
+import com.evollo.fullstack.repository.EmployeeRepository;
 import com.evollo.fullstack.repository.RoleRepository;
 import com.evollo.fullstack.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     private final UserRepository userRepository;
+    private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
@@ -30,6 +33,11 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
 
+        // CREATE EMPLOYEE ONE
+        EmployeeModel employee = new EmployeeModel("admin default", "admin@gmail.com", "000.000.000-00",
+                "System Admin Default", 50F,"ADMIN");
+        employeeRepository.save(employee);
+
         // CREATE ADMIN DEFAULT
         UserModel admin = new UserModel("admin default", "admin", "123");
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
@@ -40,6 +48,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         UserModel result = userRepository.save(admin);
 
         log.warn(userRepository.findAll());
+        log.warn(employeeRepository.findAll());
 
     }
 }

@@ -5,12 +5,17 @@ import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.exception.RoleNotSetException;
 import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.EmployeeModel;
+import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -24,9 +29,14 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public EmployeeModel getById(Long id) throws EmployeeNotFoundException {
+    public ResponseEntity<Object> getById(Long id) throws EmployeeNotFoundException {
         verifyIfEmployeeExists(id);
-        return employeeRepository.findByid(id);
+        EmployeeModel employee = employeeRepository.findByid(id);
+        UserModel user = userService.getUserByName(employee.getName());
+        Map<String, Object> userEmployee = new HashMap<>();
+        userEmployee.put("employee", employee);
+        userEmployee.put("user", user);
+        return new ResponseEntity<Object>(userEmployee, HttpStatus.OK);
     }
 
     @Transactional(rollbackFor = Exception.class)

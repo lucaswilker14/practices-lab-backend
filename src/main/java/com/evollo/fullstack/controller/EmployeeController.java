@@ -20,37 +20,37 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping("/")
+    @GetMapping("/employees")
     public ResponseEntity<List<EmployeeModel>> getAllEmployees() {
         return ResponseEntity.ok(employeeService.getAll());
     }
 
-    @GetMapping("/employee/{id}")
-    public ResponseEntity<EmployeeModel> get(@PathVariable("id") Long id) throws EmployeeNotFoundException {
+    @GetMapping(value = "/employee/{id}", consumes = "application/json")
+    public ResponseEntity<?> get(@PathVariable("id") Long id) throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.getById(id));
     }
 
-    @PostMapping("/employee")
+    @PostMapping(value = "/employee", consumes = "application/json")
     public ResponseEntity<EmployeeModel> post(@Valid @RequestBody EmployeeModel employeeModel)
             throws EmployeeAlreadyRegisteredException, UserAlreadyTakenException, RoleNotSetException {
         return new ResponseEntity<>(employeeService.save(employeeModel), HttpStatus.CREATED);
     }
 
-    @PutMapping("/employee/{id}")
+    @PutMapping(value = "/employee/{id}", consumes = "application/json")
     public ResponseEntity<EmployeeModel> put(@PathVariable("id") Long id,
                                              @Valid @RequestBody EmployeeModel newEmployeeModel)
             throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.update(id, newEmployeeModel));
     }
 
-    @PatchMapping("/employee/{id}")
+    @PatchMapping(value = "/employee/{id}", consumes = "application/json")
     public ResponseEntity<EmployeeModel> patch(@PathVariable("id") Long id,
                                                @RequestBody EmployeeModel newEmployeeModel)
             throws EmployeeNotFoundException {
         return ResponseEntity.ok(employeeService.update(id, newEmployeeModel));
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping(value = "/employee/{id}", consumes = "application/json")
     public ResponseEntity<EmployeeModel> delete(@PathVariable("id") Long id) throws EmployeeNotFoundException {
         employeeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

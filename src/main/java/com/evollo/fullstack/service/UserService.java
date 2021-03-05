@@ -52,6 +52,34 @@ public class UserService {
 
     }
 
+    public UserModel getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    public UserModel update(UserModel newUserModel) {
+
+        UserModel oldUserModel = userRepository.findByUsername(newUserModel.getUsername());
+        log.warn(newUserModel.getPassword());
+        log.warn(oldUserModel.getPassword());
+        boolean passwordDiff = !passwordEncoder.matches(oldUserModel.getPassword(), newUserModel.getPassword());
+        log.info(passwordDiff);
+
+        if (newUserModel.getName() != null) {
+            oldUserModel.setName(newUserModel.getName());
+        }
+
+        if (newUserModel.getUsername() != null) {
+            oldUserModel.setUsername(newUserModel.getUsername());
+        }
+
+        if (newUserModel.getPassword() != null && passwordDiff) {
+            String newPassword = passwordEncoder.encode(newUserModel.getPassword());
+            oldUserModel.setPassword(newPassword);
+        }
+
+        return userRepository.save(oldUserModel);
+    };
+
     private void sendEmailToUser(String toEmail, String username, String password) {
         String body = String.format("Login credentials:\n \n * username: %s \n * password: %s",
                 username, password);
