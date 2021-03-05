@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody UserModel userModel) {
-        return ResponseEntity.ok(userService.update(userModel));
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserModel userModel) {
+        return ResponseEntity.ok(userService.update(id, userModel));
     }
 }

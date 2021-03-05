@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.Collections;
 
@@ -56,13 +57,10 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public UserModel update(UserModel newUserModel) {
+    public UserModel update(Long id, UserModel newUserModel) {
 
-        UserModel oldUserModel = userRepository.findByUsername(newUserModel.getUsername());
-        log.warn(newUserModel.getPassword());
-        log.warn(oldUserModel.getPassword());
-        boolean passwordDiff = !passwordEncoder.matches(oldUserModel.getPassword(), newUserModel.getPassword());
-        log.info(passwordDiff);
+        UserModel oldUserModel = userRepository.findByid(id);
+        boolean passwordDiff = passwordEncoder.matches(oldUserModel.getPassword(), newUserModel.getPassword());
 
         if (newUserModel.getName() != null) {
             oldUserModel.setName(newUserModel.getName());
@@ -72,7 +70,7 @@ public class UserService {
             oldUserModel.setUsername(newUserModel.getUsername());
         }
 
-        if (newUserModel.getPassword() != null && passwordDiff) {
+        if (!newUserModel.getPassword().isBlank() && !passwordDiff) {
             String newPassword = passwordEncoder.encode(newUserModel.getPassword());
             oldUserModel.setPassword(newPassword);
         }
