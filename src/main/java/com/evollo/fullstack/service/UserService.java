@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.Collections;
 
@@ -76,7 +75,7 @@ public class UserService {
         }
 
         return userRepository.save(oldUserModel);
-    };
+    }
 
     private void sendEmailToUser(String toEmail, String username, String password) {
         String body = String.format("Login credentials:\n \n * username: %s \n * password: %s",

@@ -22,6 +22,7 @@ import java.util.Map;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final CompanyService companyService;
     private final UserService userService;
 
 
@@ -36,7 +37,7 @@ public class EmployeeService {
         Map<String, Object> userEmployee = new HashMap<>();
         userEmployee.put("employee", employee);
         userEmployee.put("user", user);
-        return new ResponseEntity<Object>(userEmployee, HttpStatus.OK);
+        return new ResponseEntity<>(userEmployee, HttpStatus.OK);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -45,7 +46,9 @@ public class EmployeeService {
 
         verifyIfCpfExists(employeeModel.getCpf());
         registeNewUser(employeeModel);
-        return employeeRepository.save(employeeModel);
+        employeeRepository.save(employeeModel);
+        companyService.addNewEmployee(employeeModel);
+        return employeeModel;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -103,7 +106,5 @@ public class EmployeeService {
     private void registeNewUser(EmployeeModel employeeModel) throws RoleNotSetException, UserAlreadyTakenException {
         userService.registeNewUser(employeeModel);
     }
-
-
 
 }
