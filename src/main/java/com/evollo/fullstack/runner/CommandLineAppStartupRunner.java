@@ -1,9 +1,7 @@
 package com.evollo.fullstack.runner;
 
-import com.evollo.fullstack.model.EmployeeModel;
-import com.evollo.fullstack.model.RoleModel;
-import com.evollo.fullstack.model.RoleName;
-import com.evollo.fullstack.model.UserModel;
+import com.evollo.fullstack.model.*;
+import com.evollo.fullstack.repository.CompanyRepository;
 import com.evollo.fullstack.repository.EmployeeRepository;
 import com.evollo.fullstack.repository.RoleRepository;
 import com.evollo.fullstack.repository.UserRepository;
@@ -13,6 +11,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Log4j2
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
+    private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
@@ -33,10 +35,19 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
 
+        // CREATE COMPANY
+        CompanyModel companyEvollo = new CompanyModel("EVOLLO", "111222333444-52",
+                "São Paulo", "SP", "Rua da Evollo");
+        companyRepository.save(companyEvollo);
+
         // CREATE EMPLOYEE ONE
         EmployeeModel employee = new EmployeeModel("admin default", "admin@gmail.com", "000.000.000-00",
-                "System Admin Default", 50F,"ADMIN");
+                "System Admin Default", 50F,"ADMIN", companyEvollo);
+        employee.setCompany(companyEvollo);
         employeeRepository.save(employee);
+
+        // ADD EMPLOYEE IN COMPANY
+        companyEvollo.getEmployees().add(employee);
 
         // CREATE ADMIN DEFAULT
         UserModel admin = new UserModel("admin default", "admin", "123");
@@ -47,8 +58,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         admin.getRoles().add(userRole);
         UserModel result = userRepository.save(admin);
 
-        log.warn(userRepository.findAll());
-        log.warn(employeeRepository.findAll());
+//        log.warn(userRepository.findAll());
+//        log.warn(employeeRepository.findAll());
 
     }
 }

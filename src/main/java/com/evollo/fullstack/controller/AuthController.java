@@ -3,7 +3,6 @@ package com.evollo.fullstack.controller;
 import com.evollo.fullstack.payload.LoginRequestModel;
 import com.evollo.fullstack.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
