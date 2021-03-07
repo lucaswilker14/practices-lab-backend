@@ -1,5 +1,6 @@
 package com.evollo.fullstack.service;
 
+import com.evollo.fullstack.exception.FieldInvalidException;
 import com.evollo.fullstack.exception.RoleNotSetException;
 import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.EmployeeModel;
@@ -56,17 +57,21 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public UserModel update(Long id, UserModel newUserModel) {
+    public UserModel update(Long id, UserModel newUserModel) throws FieldInvalidException {
 
         UserModel oldUserModel = userRepository.findByid(id);
         boolean passwordDiff = passwordEncoder.matches(oldUserModel.getPassword(), newUserModel.getPassword());
 
-        if (newUserModel.getName() != null) {
+        if (!newUserModel.getName().isBlank()) {
             oldUserModel.setName(newUserModel.getName());
+        }else {
+            throw new FieldInvalidException("Invalid Field");
         }
 
-        if (newUserModel.getUsername() != null) {
+        if (!newUserModel.getUsername().isBlank()) {
             oldUserModel.setUsername(newUserModel.getUsername());
+        }else {
+            throw new FieldInvalidException("Invalid Field");
         }
 
         if (!newUserModel.getPassword().isBlank() && !passwordDiff) {

@@ -1,5 +1,7 @@
 package com.evollo.fullstack.controller;
 
+import com.evollo.fullstack.exception.FieldInvalidException;
+import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,8 @@ public class UserController {
     private final UserService userService;
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserModel userModel) {
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserModel userModel)
+            throws FieldInvalidException {
         return ResponseEntity.ok(userService.update(id, userModel));
     }
 }

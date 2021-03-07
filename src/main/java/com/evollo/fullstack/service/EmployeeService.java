@@ -8,6 +8,7 @@ import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @Service
 @AllArgsConstructor
+@Log4j2
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -58,28 +60,41 @@ public class EmployeeService {
 
         EmployeeModel oldEmployeeModel = employeeRepository.findByid(id);
 
-        if (newEmployeeModel.getName() != null) {
+        if (!newEmployeeModel.getName().isBlank() &&
+                !sameFields(newEmployeeModel.getName(), oldEmployeeModel.getName())) {
             oldEmployeeModel.setName(newEmployeeModel.getName());
         }
 
-        if (newEmployeeModel.getEmail() != null) {
+        if (!newEmployeeModel.getEmail().isBlank() &&
+                !sameFields(newEmployeeModel.getEmail(), oldEmployeeModel.getEmail())) {
             oldEmployeeModel.setEmail(newEmployeeModel.getEmail());
         }
 
-        if (newEmployeeModel.getCpf() != null) {
+        if (!newEmployeeModel.getCpf().isBlank() &&
+                !sameFields(newEmployeeModel.getCpf(), oldEmployeeModel.getCpf())) {
             oldEmployeeModel.setCpf(newEmployeeModel.getCpf());
         }
 
-        if (newEmployeeModel.getJobRole() != null) {
+        if (!newEmployeeModel.getJobRole().isBlank() &&
+                !sameFields(newEmployeeModel.getJobRole(), oldEmployeeModel.getJobRole())) {
             oldEmployeeModel.setJobRole(newEmployeeModel.getJobRole());
         }
 
-        if (newEmployeeModel.getSalary() != null) {
+        if (!newEmployeeModel.getSalary().isNaN() &&
+                !sameSalary(newEmployeeModel.getSalary(), oldEmployeeModel.getSalary())) {
             oldEmployeeModel.setSalary(newEmployeeModel.getSalary());
         }
 
         //update the old employee
         return employeeRepository.save(oldEmployeeModel);
+    }
+
+    private boolean sameFields(String compare1, String compare2) {
+        return compare1.equals(compare2);
+    }
+
+    private boolean sameSalary(Float salary1, Float salary2) {
+        return salary1.equals(salary2);
     }
 
     @Transactional(rollbackFor = Exception.class)
