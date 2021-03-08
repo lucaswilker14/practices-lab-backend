@@ -111,4 +111,8 @@ public class UserService {
         return new SignUpRequest(employeeModel.getName(), "", "", roleName);
     }
 
+    public void removeUser(Long id) {
+        this.userRepository.deleteById(id);
+    }
+
 }

@@ -102,6 +102,7 @@ public class EmployeeService {
     public void delete(Long id) throws EmployeeNotFoundException {
         verifyIfEmployeeExists(id);
         EmployeeModel employee = employeeRepository.findByid(id);
+        removeUser(employee);
         removeCompanyUser(employee);
         employeeRepository.delete(employee);
     }
@@ -126,6 +127,10 @@ public class EmployeeService {
 
     private void removeCompanyUser(EmployeeModel employeeModel) {
         this.companyService.removeCompanyUser(employeeModel);
+    }
+
+    private void removeUser(EmployeeModel employeeModel) {
+        this.userService.removeUser(employeeModel.getId());
     }
 
 }
