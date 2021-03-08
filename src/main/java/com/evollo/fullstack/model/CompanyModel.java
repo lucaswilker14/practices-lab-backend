@@ -2,6 +2,7 @@ package com.evollo.fullstack.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,19 +13,25 @@ import java.util.List;
 @Data
 public class CompanyModel {
 
+    @ApiModelProperty(example = "2")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ApiModelProperty(example = "ABCD")
     private String companyName;
 
+    @ApiModelProperty(example = "123456789")
     @Column(unique = true)
     private String cnpj;
 
+    @ApiModelProperty(example = "São Paulo")
     private String city;
 
+    @ApiModelProperty(example = "SP")
     private String state;
 
+    @ApiModelProperty(example = "Rua trelo teste")
     private String address;
 
     @JsonIgnore

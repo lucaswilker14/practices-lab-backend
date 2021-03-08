@@ -56,4 +56,9 @@ public class CompanyService {
             throw new EmployeeNotFoundException("Company Already Registered!");
         }
     }
+
+    public void removeCompanyUser(EmployeeModel employeeModel) {
+        CompanyModel company = this.companyRepository.findByid(employeeModel.getCompany().getId());
+        company.getEmployees().remove(employeeModel);
+    }
 }

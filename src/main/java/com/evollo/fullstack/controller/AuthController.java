@@ -2,6 +2,9 @@ package com.evollo.fullstack.controller;
 
 import com.evollo.fullstack.payload.LoginRequestModel;
 import com.evollo.fullstack.service.AuthService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +17,13 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/auth")
 @RequiredArgsConstructor
+@Api(value="Login", tags = "1 - Login")
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping(value = "/login")
+    @ApiOperation(value="Realiza Login no Sistema", notes="Use Admin Default -> Username: Admin; Password: 123 ")
+    @PostMapping(value = "/login", produces="application/json")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestModel loginRequest) {
         return ResponseEntity.ok(authService.authenticateUser(loginRequest));
     }
