@@ -23,7 +23,6 @@ public class UserModel {
     @Column(unique = true)
     private String username;
 
-    @JsonIgnore
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
