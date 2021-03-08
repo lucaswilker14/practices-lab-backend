@@ -4,6 +4,7 @@ import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.exception.RoleNotSetException;
 import com.evollo.fullstack.exception.UserAlreadyTakenException;
+import com.evollo.fullstack.model.CompanyModel;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
@@ -101,6 +102,7 @@ public class EmployeeService {
     public void delete(Long id) throws EmployeeNotFoundException {
         verifyIfEmployeeExists(id);
         EmployeeModel employee = employeeRepository.findByid(id);
+        removeCompanyUser(employee);
         employeeRepository.delete(employee);
     }
 
@@ -120,6 +122,10 @@ public class EmployeeService {
 
     private void registeNewUser(EmployeeModel employeeModel) throws RoleNotSetException, UserAlreadyTakenException {
         userService.registeNewUser(employeeModel);
+    }
+
+    private void removeCompanyUser(EmployeeModel employeeModel) {
+        this.companyService.removeCompanyUser(employeeModel);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.evollo.fullstack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserModel {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +23,7 @@ public class UserModel {
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

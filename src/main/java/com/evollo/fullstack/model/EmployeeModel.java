@@ -1,5 +1,6 @@
 package com.evollo.fullstack.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,28 +12,36 @@ import java.io.Serializable;
 @Data
 public class EmployeeModel implements Serializable {
 
+    @ApiModelProperty(hidden = true)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ApiModelProperty(example = "Fulano")
     @Column(nullable = false)
     @NotBlank(message = "Name is mandatory")
     private String name;
 
+    @ApiModelProperty(example = "Insira seu email real")
     @Column(nullable = false)
     @Email
     private String email;
 
+    @ApiModelProperty(example = "111.555.444-33")
     @Column(nullable = false)
     @NotBlank
     private String cpf;
 
+    @ApiModelProperty(example = "Dev SR")
     @Column(nullable = false)
     private String jobRole;
 
+
+    @ApiModelProperty(example = "8000")
     @Column(nullable = false)
     private Float salary;
 
+    @ApiModelProperty(example = "ADMIN")
     @Column(nullable = false)
     private String permission;
 
