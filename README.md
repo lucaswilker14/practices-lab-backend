@@ -49,7 +49,7 @@ Antes de começar, certifique-se de ter atendido aos seguintes requisitos:
 
 ### Maven Version
 
-```
+```sh
 $ mvn -version
 
 > Apache Maven 3.6.0
@@ -60,7 +60,7 @@ OS name: "linux", version: "5.4.0-66-generic", arch: "amd64", family: "unix"
 ```
 
 ### Java Version
-```
+```sh
 $ java -version
 
 > openjdk version "11.0.10" 2021-01-19
@@ -69,21 +69,21 @@ OpenJDK 64-Bit Server VM (build 11.0.10+9-Ubuntu-0ubuntu1.18.04, mixed mode, sha
 ```
 
 ### Javac Version
-```
+```sh
 $ javac -version
 
 > javac 11.0.10
 ```
 
 ### Docker Version
-```
+```sh
 $ docker --version
 
 > Docker version 20.10.4, build d3cb89e
 ```
 
 ### docker-compose Version
-```
+```sh
 $ docker-compose --version
 
 > docker-compose version 1.21.2, build a133471
