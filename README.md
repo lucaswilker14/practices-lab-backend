@@ -39,8 +39,8 @@ password: 123
 ### Pre-requisitos de instalação
 Antes de começar, certifique-se de ter atendido aos seguintes requisitos:
 
-* [JDK](https://www.oracle.com/java/technologies/javase-downloads.html)
-* [Maven](https://maven.apache.org/download.cgi)
+* [JDK 11+](https://www.oracle.com/java/technologies/javase-downloads.html)
+* [Maven 3.6+ - Set $JAVA_HOME](https://maven.apache.org/download.cgi)
 * [Docker](https://docs.docker.com/get-docker/)
 * [Docker-compose](https://docs.docker.com/compose/install/) 
 * [Postman](https://www.postman.com/downloads/) (opcional)
@@ -51,7 +51,7 @@ Antes de começar, certifique-se de ter atendido aos seguintes requisitos:
 **Dentro da pasta do projeto, execute o maven para a criação do artefato .jar:**
 
 ```sh
-$ mvn clear compile install
+$ mvn clean compile install
 ```
 
 **Subir o container Docker com a aplicação:**
@@ -60,7 +60,7 @@ $ mvn clear compile install
 $ docker-compose up
 ```
 
-**Parte do Log da execução da aplicação**
+**Parte do Log da execução da aplicação quando rodando:**
 ```sh
 $ Tomcat started on port(s): 8080 (http) with context path '/evollo/api'
 ```
