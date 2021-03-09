@@ -1,6 +1,6 @@
 # Backend - Prova Técnica Evollo
 
-**Objectivo**: Criar uma aplicação para consumo de informações sobre uma empresa e seus
+**Objetivo**: Criar uma aplicação para consumo de informações sobre uma empresa e seus
 funcionários, para isso o backend deve disponibilizar algumas APIs para realização de CRUD de
 funcionários e consulta de informações.
 
@@ -109,7 +109,7 @@ $ docker-compose up
 ```
 
 **Link da aplicação:**
-[localhost:8080/evollo/api](localhost:8080/evollo/api)
+[localhost:8080/evollo/api](http://localhost:8080/evollo/api/)
 
 ***
 
