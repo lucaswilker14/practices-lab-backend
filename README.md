@@ -6,6 +6,8 @@ funcionários e consulta de informações.
 
 **OBS: Desenvolvido em Ubuntu 18.04**
 
+##
+
 ### Recusos Implementados
 
 **Empresa:**
@@ -28,6 +30,7 @@ funcionários e consulta de informações.
 * Criação de um usuário com username + senha
 * Envio do email com as credenciais cadastradas para login
 
+##
 
 ### Admin Default cadastrado no sistema para login inicial
 
@@ -37,6 +40,8 @@ password: 123
 ```
 
 ***
+
+##
 
 ### Pre-requisitos de instalação
 Antes de começar, certifique-se de ter atendido aos seguintes requisitos:
