@@ -41,8 +41,8 @@ Antes de começar, certifique-se de ter atendido aos seguintes requisitos:
 
 * [JDK 11+](https://www.oracle.com/java/technologies/javase-downloads.html)
 * [Maven 3.6+ -> Set $JAVA_HOME](https://maven.apache.org/download.cgi)
-* [Docker](https://docs.docker.com/get-docker/)
-* [Docker-compose](https://docs.docker.com/compose/install/) 
+* [Docker](https://www.digitalocean.com/community/tutorials/como-instalar-e-usar-o-docker-no-ubuntu-18-04-pt)
+* [Docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04-pt) 
 * [Postman](https://www.postman.com/downloads/) (opcional)
 
 ## Pre-views versões:
