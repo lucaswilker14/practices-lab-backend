@@ -4,6 +4,8 @@
 funcionários, para isso o backend deve disponibilizar algumas APIs para realização de CRUD de
 funcionários e consulta de informações.
 
+**OBS: Desenvolvido em Ubuntu 18.04**
+
 ### Recusos Implementados
 
 **Empresa:**
