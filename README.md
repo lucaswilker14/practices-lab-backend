@@ -47,7 +47,7 @@ Antes de começar, certifique-se de ter atendido aos seguintes requisitos:
 
 ## Pre-views versões:
 
-###Maven Version
+### Maven Version
 
 ```
 $ mvn -version
@@ -59,7 +59,7 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "5.4.0-66-generic", arch: "amd64", family: "unix"
 ```
 
-###Java Version
+### Java Version
 ```
 $ java -version
 
@@ -68,21 +68,21 @@ OpenJDK Runtime Environment (build 11.0.10+9-Ubuntu-0ubuntu1.18.04)
 OpenJDK 64-Bit Server VM (build 11.0.10+9-Ubuntu-0ubuntu1.18.04, mixed mode, sharing)
 ```
 
-###Javac Version
+### Javac Version
 ```
 $ javac -version
 
 > javac 11.0.10
 ```
 
-###Docker Version
+### Docker Version
 ```
 $ docker --version
 
 > Docker version 20.10.4, build d3cb89e
 ```
 
-###docker-compose Version
+### docker-compose Version
 ```
 $ docker-compose --version
 
