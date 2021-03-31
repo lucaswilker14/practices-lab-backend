@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  evollo-backend:
+  practices-lab-backend:
     build: .
-    image: evollo-backend
+    image: practices-lab-backend
     ports:
     - 8080:8080
