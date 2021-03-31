@@ -39,7 +39,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("API - Prova Técnica Evollo")
+                .title("API - Practices Labs")
                 .version("1.0.0")
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")

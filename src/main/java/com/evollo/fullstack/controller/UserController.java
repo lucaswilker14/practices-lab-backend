@@ -1,7 +1,6 @@
 package com.evollo.fullstack.controller;
 
 import com.evollo.fullstack.exception.FieldInvalidException;
-import com.evollo.fullstack.exception.UserAlreadyTakenException;
 import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.service.UserService;
 import io.swagger.annotations.Api;
