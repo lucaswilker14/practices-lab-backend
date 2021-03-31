@@ -124,4 +124,4 @@ $ docker-compose up
 [Link Swagger](http://localhost:8080/evollo/api/swagger-ui.html)
 
 ### Aplicação Frontend
-[link](https://github.com/lucaswilker14/practices-lab-backend)
+[link](https://github.com/lucaswilker14/practices-lab-frontend)
