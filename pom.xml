@@ -8,10 +8,10 @@
         <version>2.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.evollo</groupId>
-    <artifactId>evollo-backend</artifactId>
+    <groupId>com.plabs</groupId>
+    <artifactId>practices-lab-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>fullstack</name>
+    <name>backend</name>
     <description>Prova Tecnica - Evollo</description>
     <properties>
         <java.version>11</java.version>
