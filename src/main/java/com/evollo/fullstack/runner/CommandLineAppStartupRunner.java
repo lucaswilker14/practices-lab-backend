@@ -11,9 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 @Log4j2
 @RequiredArgsConstructor
@@ -36,8 +33,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         roleRepository.save(roleUser);
 
         // CREATE COMPANY
-        CompanyModel companyEvollo = new CompanyModel("EVOLLO", "111222333444-52",
-                "São Paulo", "SP", "Rua da Evollo");
+        CompanyModel companyEvollo = new CompanyModel("Empresa XPTO", "111222333444-52",
+                "São Paulo", "SP", "Rua da XPTO");
         companyRepository.save(companyEvollo);
 
         // CREATE EMPLOYEE ONE
@@ -56,10 +53,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         RoleModel userRole = roleRepository.findByRole(RoleName.ROLE_USER).orElseThrow(() -> new Exception("User Role not set."));
         admin.getRoles().add(adminRole);
         admin.getRoles().add(userRole);
-        UserModel result = userRepository.save(admin);
-
-//        log.warn(userRepository.findAll());
-//        log.warn(employeeRepository.findAll());
+        userRepository.save(admin);
 
     }
 }

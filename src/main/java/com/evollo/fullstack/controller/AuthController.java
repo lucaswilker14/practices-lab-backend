@@ -4,7 +4,6 @@ import com.evollo.fullstack.payload.LoginRequestModel;
 import com.evollo.fullstack.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

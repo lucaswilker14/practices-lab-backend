@@ -4,7 +4,6 @@ import com.evollo.fullstack.exception.EmployeeAlreadyRegisteredException;
 import com.evollo.fullstack.exception.EmployeeNotFoundException;
 import com.evollo.fullstack.exception.RoleNotSetException;
 import com.evollo.fullstack.exception.UserAlreadyTakenException;
-import com.evollo.fullstack.model.CompanyModel;
 import com.evollo.fullstack.model.EmployeeModel;
 import com.evollo.fullstack.model.UserModel;
 import com.evollo.fullstack.repository.EmployeeRepository;
