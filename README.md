@@ -1,4 +1,4 @@
-# Backend - Prova Técnica Evollo
+# Backend - Practices Labs - Java 11
 
 **Objetivo**: Criar uma aplicação para consumo de informações sobre uma empresa e seus
 funcionários, para isso o backend deve disponibilizar algumas APIs para realização de CRUD de
