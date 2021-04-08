@@ -116,12 +116,12 @@ $ docker-compose up
 ```
 
 **Link da aplicação:**
-[localhost:8080/evollo/api](http://localhost:8080/plabs/api)
+[localhost:8080/plabs/api](http://localhost:8080/plabs/api)
 
 ***
 
 ### Documentação
-[Link Swagger](http://localhost:8080/evollo/api/swagger-ui.html)
+[Link Swagger](http://localhost:8080/plabs/api/swagger-ui.html)
 
 ### Aplicação Frontend
 [link](https://github.com/lucaswilker14/practices-lab-frontend)
