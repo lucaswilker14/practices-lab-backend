@@ -112,11 +112,11 @@ $ docker-compose up
 
 **Parte do Log da execução da aplicação quando rodando:**
 ```sh
-> Tomcat started on port(s): 8080 (http) with context path '/evollo/api'
+> Tomcat started on port(s): 8080 (http) with context path '/plabs/api'
 ```
 
 **Link da aplicação:**
-[localhost:8080/evollo/api](http://localhost:8080/evollo/api/)
+[localhost:8080/evollo/api](http://localhost:8080/plabs/api)
 
 ***
 
